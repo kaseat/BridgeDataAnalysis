@@ -29,7 +29,7 @@ namespace Conv
         public String IssoElementVal { get; set; }
         public Int32 DefectCountCode { get; set; }
         public String DefectCountVal { get; set; }
-        public String DefectCountValVal { get; set; }
+        public Double DefectCountValVal { get; set; }
         public String DefectCountValDate { get; set; }
     }
 }

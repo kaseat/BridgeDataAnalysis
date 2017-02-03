@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -60,21 +61,21 @@ namespace Conv
                         {
                             Code = z.DefectCode,
                             Name = z.DefectValue,
-                            Value = String.IsNullOrEmpty(z.DefectCountValVal)
+                            Value = Math.Abs(z.DefectCountValVal) < 1e-5
                                 ? Double.NaN
-                                : Double.Parse(z.DefectCountValVal),
-                            Type = String.IsNullOrEmpty(z.DefectCountValVal)
+                                : z.DefectCountValVal,
+                            Type = Math.Abs(z.DefectCountValVal) < 1e-5
                                 ? DefectType.Qualitative
                                 : DefectType.Quantitative,
-                            DetectionDate = z.DefectCountValDate != String.Empty
-                                ? DateTime.Parse(z.DefectCountValDate)
-                                : DateTime.MinValue,
-                            PlanRepairDate = z.PlanRepairDate != String.Empty
-                                ? DateTime.Parse(z.PlanRepairDate)
-                                : DateTime.MinValue,
-                            FactRepairDate = z.FactRepairDate != String.Empty
-                                ? DateTime.Parse(z.FactRepairDate)
-                                : DateTime.MinValue,
+                            DetectionDate = String.IsNullOrEmpty(z.DefectCountValDate)
+                                ? DateTime.MinValue
+                                : DateTime.Parse(z.DefectCountValDate),
+                            PlanRepairDate = String.IsNullOrEmpty(z.PlanRepairDate)
+                                ? DateTime.MinValue
+                                : DateTime.Parse(z.PlanRepairDate),
+                            FactRepairDate = String.IsNullOrEmpty(z.FactRepairDate)
+                                ? DateTime.MinValue
+                                : DateTime.Parse(z.FactRepairDate),
                         }).ToList()
                     }).ToList()
                 }

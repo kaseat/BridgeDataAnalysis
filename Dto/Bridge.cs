@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DTO
 {
@@ -16,5 +17,8 @@ namespace DTO
         public Byte ObstecleCode { get; set; }
         public String ObstecleVal { get; set; }
         public List<Superstructure> Superstructures { get; set; }
+
+        public override String ToString()
+            => $"Defect count: {Superstructures.Sum(superstructure => superstructure.Defects.Count)}";
     }
 }

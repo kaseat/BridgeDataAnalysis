@@ -13,5 +13,8 @@ namespace DTO
         public DateTime PlaceDate { get; set; }
         public Double Length { get; set; }
         public List<Defect> Defects { get; set; }
+
+        public override String ToString()
+            => $"DefCnt= {Defects.Count}";
     }
 }
