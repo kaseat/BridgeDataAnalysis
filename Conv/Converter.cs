@@ -1,10 +1,14 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Xml.Serialization;
+using Conv.Abstract;
+using Conv.Concrete;
+using Conv.Dto;
 using DTO;
 
 namespace Conv
@@ -13,9 +17,12 @@ namespace Conv
     {
         public static List<Bridge> Import(String path)
         {
+            IImporter<IEnumerable<Bridge>> f;
             DataSetImportClass rawData;
             using (var fs = new FileStream(path, FileMode.Open))
             {
+                f=new ExcelXmlToBridge(fs);
+                f.Import();
                 rawData = (DataSetImportClass) new XmlSerializer(typeof(DataSetImportClass)).Deserialize(fs);
                 fs.Close();
             }
@@ -59,9 +66,9 @@ namespace Conv
                         Length = y.Key.SpanLength,
                         Defects = y.Select(z => new Defect
                         {
-                            Code = z.DefectCode,
-                            Name = z.DefectValue,
-                            Value = Math.Abs(z.DefectCountValVal) < 1e-5
+                            DefectTypeCode = z.DefectCountCode,
+                            DefectTypeValue = z.DefectCountVal,
+                            DefectEntry = Math.Abs(z.DefectCountValVal) < 1e-5
                                 ? Double.NaN
                                 : z.DefectCountValVal,
                             Type = Math.Abs(z.DefectCountValVal) < 1e-5
@@ -82,7 +89,7 @@ namespace Conv
             ).ToList();
         }
 
-        public static Boolean SaveXml(List<Bridge> data, Stream fs)
+        public static Boolean SaveXml(List<Bridge> data,  Stream fs)
         {
             try
             {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Conv
+namespace Conv.Dto
 {
     [Serializable]
     public class BridgeImportClass

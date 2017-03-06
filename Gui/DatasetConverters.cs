@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using DTO;
 using Gui.Properties;
+using System.Linq;
 using Conv;
 
 namespace Gui
@@ -43,7 +44,12 @@ namespace Gui
             if (path == null) return;
             try
             {
-                brLst = Converter.Import(path);
+                brLst = Converter.Import(path)
+                    .Where(x => x.Superstructures
+                    .Sum(superstructure => superstructure.Defects.Count) > 5)
+                    .Select(x => x)
+                    .ToList();
+
                 button2.Enabled = false;
                 button3.Enabled = true;
                 label1.Text = Resources.ConvOk;

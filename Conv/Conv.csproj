@@ -35,8 +35,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BridgeImportClass.cs" />
-    <Compile Include="DataSetImportClass.cs" />
+    <Compile Include="Abstract\IExporter.cs" />
+    <Compile Include="Abstract\IImporter.cs" />
+    <Compile Include="Concrete\ExcelXMLToDay.cs" />
+    <Compile Include="Dto\BridgeImportClass.cs" />
+    <Compile Include="Concrete\BridgeToXml.cs" />
+    <Compile Include="Concrete\ExcelXmlToBridge.cs" />
+    <Compile Include="Concrete\XmlToBridge.cs" />
+    <Compile Include="Dto\BridgeImportClassV2.cs" />
+    <Compile Include="Dto\DataSetImportClass.cs" />
+    <Compile Include="Concrete\ExcelXmlV2ToBridge.cs" />
+    <Compile Include="Dto\DayClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Converter.cs" />
   </ItemGroup>
